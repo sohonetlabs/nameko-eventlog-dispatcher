@@ -73,12 +73,13 @@ Then some events will be atomatically captured and dispatched as
 entrypoint is fired.
 
 There are some things to take into consideration:
-* This will be enabled by setting ``auto_capture`` to ``true``.
-* The source service for these events will be ``all``.
-* The event type will be ``entrypoint_fired``.
-* Only entrypoints listed in the ``ENTRYPOINT_TYPES_TO_LOG`` class
+
+- This will be enabled by setting ``auto_capture`` to ``true``.
+- The source service for these events will be ``all``.
+- The event type will be ``entrypoint_fired``.
+- Only entrypoints listed in the ``ENTRYPOINT_TYPES_TO_LOG`` class
   attribute will be logged.
-* ``entrypoints_to_exclude`` can be used to provide a list of entrypoint
+- ``entrypoints_to_exclude`` can be used to provide a list of entrypoint
   method names to exclude when firing events automatically.
 
 Then, any `nameko <http://nameko.readthedocs.org>`_ service will be able
