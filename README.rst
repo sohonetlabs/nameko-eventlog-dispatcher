@@ -1,4 +1,4 @@
-nameko-eventlog-dispatcher
+Nameko eventlog dispatcher
 ==========================
 
 .. pull-quote::
@@ -70,13 +70,15 @@ Enable auto capture event logs in your
 
 Then some events will be atomatically captured and dispatched as
 `nameko <http://nameko.readthedocs.org>`_ Events. For instance, when an
-entrypoint is fired. There are some things to take into consideration:
-- This will be enabled by setting ``auto_capture`` to ``true``.
-- The source service for these events will be ``all``.
-- The event type will be ``entrypoint_fired``.
-- Only entrypoints listed in the ``ENTRYPOINT_TYPES_TO_LOG`` class
+entrypoint is fired.
+
+There are some things to take into consideration:
+* This will be enabled by setting ``auto_capture`` to ``true``.
+* The source service for these events will be ``all``.
+* The event type will be ``entrypoint_fired``.
+* Only entrypoints listed in the ``ENTRYPOINT_TYPES_TO_LOG`` class
   attribute will be logged.
-- ``entrypoints_to_exclude`` can be used to provide a list of entrypoint
+* ``entrypoints_to_exclude`` can be used to provide a list of entrypoint
   method names to exclude when firing events automatically.
 
 Then, any `nameko <http://nameko.readthedocs.org>`_ service will be able
@@ -101,7 +103,7 @@ Format of the event log data
 
 This is the format of the event log data:
 
-.. code-block:: json
+.. code-block:: python
 
     {
       "entrypoint_name": "foo_method",
@@ -128,7 +130,7 @@ Tests
 It is assumed that RabbitMQ is up and running on the default URL
 ``guest:guest@localhost`` and uses the default ports.
 
-.. code-block:: python
+.. code-block:: bash
 
     $ make test
     $ make coverage
@@ -139,7 +141,7 @@ environment variables: ``RABBIT_CTL_URI`` and ``AMQP_URI``.
 Additional ``pytest`` parameters can be also provided using the ``ARGS``
 variable.
 
-.. code-block:: python
+.. code-block:: bash
 
     $ make test RABBIT_CTL_URI=http://guest:guest@dockermachine:15673 AMQP_URI=amqp://guest:guest@dockermachine:5673 ARGS='-x -vv --disable-pytest-warnings'
     $ make coverage RABBIT_CTL_URI=http://guest:guest@dockermachine:15673 AMQP_URI=amqp://guest:guest@dockermachine:5673 ARGS='-x -vv --disable-pytest-warnings'
