@@ -35,13 +35,12 @@ Include the ``EventLogDispatcher`` dependency in your service class:
             self.eventlog_dispatcher('foo_event_type', {'value': 1})
 
 ``event_type`` and  some ``event_data`` (optional) will be provided as
-arguments. ``event_data`` must contain serializable data.
+arguments. ``event_data`` must contain JSON serializable data.
 
 Calling ``foo_method`` will dispatch an event from the ``foo`` service
 with ``log_event`` as the event type.
 
-Then, any `nameko <http://nameko.readthedocs.org>`_ service will be able
-to handle this event.
+Then, any nameko service will be able to handle this event.
 
 .. code-block:: python
 
@@ -60,8 +59,7 @@ to handle this event.
 Capturing log data when entrypoints are fired
 `````````````````````````````````````````````
 
-Enable auto capture event logs in your
-`nameko <http://nameko.readthedocs.org>`_ configuration file:
+Enable auto capture event logs in your nameko configuration file:
 
 .. code-block:: yaml
 
@@ -71,13 +69,9 @@ Enable auto capture event logs in your
       auto_capture: true
       entrypoints_to_exclude: []
 
-Then some events will be atomatically captured and dispatched as
-`nameko <http://nameko.readthedocs.org>`_ Events. For instance, when an
-entrypoint is fired.
+With ``auto_capture`` set to ``true``, a nameko event will be dispatched
+every time an entrypoint is fired:
 
-There are some things to take into consideration:
-
-- This will be enabled by setting ``auto_capture`` to ``true``.
 - The source service for these events will be ``all``.
 - The event type will be ``entrypoint_fired``.
 - Only entrypoints listed in the ``ENTRYPOINT_TYPES_TO_LOG`` class
@@ -85,8 +79,7 @@ There are some things to take into consideration:
 - ``entrypoints_to_exclude`` can be used to provide a list of entrypoint
   method names to exclude when firing events automatically.
 
-Then, any `nameko <http://nameko.readthedocs.org>`_ service will be able
-to handle this kind of events:
+Then, any nameko service will be able to handle this kind of events:
 
 .. code-block:: python
 
@@ -125,7 +118,7 @@ This is the format of the event log data:
     }
 
 The ``data`` attribute will contain the event data that was provided as
-an argument for the `event_data`` parameter when dispatching the event.
+an argument for the ``event_data`` parameter when dispatching the event.
 
 
 Tests
