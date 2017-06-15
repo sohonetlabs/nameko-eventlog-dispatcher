@@ -13,7 +13,7 @@ test: flake8
 		--amqp-uri $(AMQP_URI)
 
 coverage: flake8
-	coverage run --concurrency=eventlet
+	coverage run --concurrency=eventlet \
 		--source nameko_eventlog_dispatcher \
 		-m pytest test $(ARGS) \
 		--rabbit-ctl-uri $(RABBIT_CTL_URI) \
