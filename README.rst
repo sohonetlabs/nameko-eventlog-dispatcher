@@ -1,6 +1,9 @@
 Nameko eventlog dispatcher
 ==========================
 
+.. image:: https://travis-ci.org/sohonetlabs/nameko-eventlog-dispatcher.svg?branch=master           |
+    :target: https://travis-ci.org/sohonetlabs/nameko-eventlog-dispatcher
+
 .. pull-quote::
 
     `Nameko <http://nameko.readthedocs.org>`_ dependency provider that
