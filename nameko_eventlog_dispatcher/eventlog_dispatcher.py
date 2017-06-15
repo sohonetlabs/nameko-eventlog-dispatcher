@@ -15,7 +15,7 @@ log = logging.getLogger(__name__)
 
 class EventLogDispatcher(EventDispatcher):
 
-    """Dispatcher of event logs reusing the Nameko `EventDispatcher`.
+    """Dispatcher of event logs.
 
     When the auto capture feature is enabled, it dispatches an event
     each time an entrypoint is fired.
