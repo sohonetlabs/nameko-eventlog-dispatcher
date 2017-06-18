@@ -31,11 +31,12 @@ setup(
         ],
     },
     zip_safe=True,
-    license='Apache License, Version 2.0',
+    license='MIT License',
     classifiers=[
         "Programming Language :: Python",
         "Operating System :: POSIX",
         "Operating System :: MacOS :: MacOS X",
+        "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.3",
         "Programming Language :: Python :: 3.4",
