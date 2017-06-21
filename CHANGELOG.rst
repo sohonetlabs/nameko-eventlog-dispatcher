@@ -13,6 +13,8 @@ Version 0.2.0
 Released 2017-06-*
 
 * Use service name as source service, instead of "all", when dispatching Nameko events automatically.
+* Rename EVENT_TYPE class attribute to GENERIC_EVENT_TYPE.
+* Add the ability to provide both `generic` and `entrypoint_fired` `event_types` in the service config.
 
 Version 0.1.0
 -------------
