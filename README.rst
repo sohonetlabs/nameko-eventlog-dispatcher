@@ -7,7 +7,7 @@ Nameko eventlog dispatcher
     dispatches log data using ``Events`` (Pub-Sub).
 
 
-.. image:: https://travis-ci.org/sohonetlabs/nameko-eventlog-dispatcher.svg?branch=master
+.. image:: https://travis-ci.org/sohonetlabs/nameko-eventlog-dispatcher.png?branch=master
 
 
 Usage
@@ -38,7 +38,8 @@ Include the ``EventLogDispatcher`` dependency in your service class:
 arguments. ``event_data`` must contain JSON serializable data.
 
 Calling ``foo_method`` will dispatch an event from the ``foo`` service
-with ``log_event`` as the event type.
+with ``log_event`` as the event type. However ``foo_event_type`` will be
+the event type stored as part of the event metadata.
 
 Then, any nameko service will be able to handle this event.
 
@@ -72,27 +73,14 @@ Enable auto capture event logs in your nameko configuration file:
 With ``auto_capture`` set to ``true``, a nameko event will be dispatched
 every time an entrypoint is fired:
 
-- The source service for these events will be ``all``.
-- The event type will be ``entrypoint_fired``.
+- They can also be handled by listening ``log_event`` events from the
+  service dispatching them.
+- ``entrypoint_fired`` will be the event type stored as part of the
+  event metadata.
 - Only entrypoints listed in the ``ENTRYPOINT_TYPES_TO_LOG`` class
   attribute will be logged.
 - ``entrypoints_to_exclude`` can be used to provide a list of entrypoint
   method names to exclude when firing events automatically.
-
-Then, any nameko service will be able to handle this kind of events:
-
-.. code-block:: python
-
-    from nameko.events import event_handler
-
-
-    class BazService:
-
-        name = 'baz'
-
-        @event_handler('all', 'entrypoint_fired')
-        def all_entrypoint_fired_event_handler(self, body):
-            """Body will contain the event log data."""
 
 
 Format of the event log data
@@ -106,7 +94,7 @@ This is the format of the event log data:
       "entrypoint_name": "foo_method",
       "service_name": "foo",
       "timestamp": "2017-06-12T13:48:16+00:00",
-      "event_type": "foo_event_type",
+      "event_type": "foo_event_type",  # "entrypoint_fired", ...
       "data": {},
       "call_stack": [
         "standalone_rpc_proxy.call.3f349ea4-ed3e-4a3b-93d0-a36fbf928ecb",

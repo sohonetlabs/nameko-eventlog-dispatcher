@@ -51,12 +51,8 @@ class TestService:
         else:
             self.eventlog_dispatcher('my_event_type')
 
-    @event_handler('all', 'entrypoint_fired')
-    def entrypoint_fired_event_handler(self, body):
-        return body
-
     @event_handler('test_service', 'log_event')
-    def my_event_type_event_handler(self, body):
+    def log_event_handler(self, body):
         return body
 
 
@@ -70,7 +66,7 @@ class TestDispatchEventsAutomatically:
         container.start()
 
         with entrypoint_waiter(
-            container, 'entrypoint_fired_event_handler', timeout=1
+            container, 'log_event_handler', timeout=1
         ) as result:
             with entrypoint_hook(
                 container, 'rpc_entrypoint'
@@ -101,7 +97,7 @@ class TestDispatchEventsAutomatically:
         container.start()
 
         with entrypoint_waiter(
-            container, 'entrypoint_fired_event_handler', timeout=1
+            container, 'log_event_handler', timeout=1
         ) as result:
             web_session.get('/test')
 
@@ -135,9 +131,7 @@ class TestDoNotDispatchEventsAutomatically:
         container.start()
 
         with pytest.raises(EntrypointWaiterTimeout):
-            with entrypoint_waiter(
-                container, 'entrypoint_fired_event_handler', timeout=1
-            ):
+            with entrypoint_waiter(container, 'log_event_handler', timeout=1):
                 with entrypoint_hook(
                     container, 'rpc_entrypoint'
                 ) as rpc_entrypoint:
@@ -150,9 +144,7 @@ class TestDoNotDispatchEventsAutomatically:
         container.start()
 
         with pytest.raises(EntrypointWaiterTimeout):
-            with entrypoint_waiter(
-                container, 'entrypoint_fired_event_handler', timeout=1
-            ):
+            with entrypoint_waiter(container, 'log_event_handler', timeout=1):
                 with entrypoint_hook(
                     container, 'rpc_entrypoint'
                 ) as rpc_entrypoint:
@@ -165,9 +157,7 @@ class TestDoNotDispatchEventsAutomatically:
         container.start()
 
         with pytest.raises(EntrypointWaiterTimeout):
-            with entrypoint_waiter(
-                container, 'entrypoint_fired_event_handler', timeout=1
-            ):
+            with entrypoint_waiter(container, 'log_event_handler', timeout=1):
                 web_session.get('/test')
 
     @pytest.mark.parametrize('auto_capture', [True, False])
@@ -181,9 +171,7 @@ class TestDoNotDispatchEventsAutomatically:
         container.start()
 
         with pytest.raises(EntrypointWaiterTimeout):
-            with entrypoint_waiter(
-                container, 'entrypoint_fired_event_handler', timeout=1
-            ):
+            with entrypoint_waiter(container, 'log_event_handler', timeout=1):
                 with entrypoint_hook(
                     container, 'dummy_entrypoint'
                 ) as dummy_entrypoint:
@@ -217,9 +205,7 @@ class TestUnexpectedErrors:
         event_dispatcher_mock.side_effect = [Mock(), exception]
 
         with pytest.raises(EntrypointWaiterTimeout):
-            with entrypoint_waiter(
-                container, 'entrypoint_fired_event_handler', timeout=1
-            ):
+            with entrypoint_waiter(container, 'log_event_handler', timeout=1):
                 with entrypoint_hook(
                     container, 'rpc_entrypoint'
                 ) as rpc_entrypoint:
@@ -250,7 +236,7 @@ class TestDispatchEventsMaually:
         container.start()
 
         with entrypoint_waiter(
-            container, 'my_event_type_event_handler', timeout=1
+            container, 'log_event_handler', timeout=1
         ) as result:
             with entrypoint_hook(container, 'log_event_method') as log_event:
                 log_event(event_data)

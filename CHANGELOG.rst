@@ -7,6 +7,13 @@ nameko-eventlog-dispatcher versions, where semantic versioning is used:
 
 Backwards-compatible changes increment the minor version number only.
 
+Version 0.2.0
+-------------
+
+Released 2017-06-*
+
+* Use service name as source service, instead of "all", when dispatching Nameko events automatically.
+
 Version 0.1.0
 -------------
 
