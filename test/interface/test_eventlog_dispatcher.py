@@ -121,40 +121,6 @@ class TestDispatchEventsAutomatically:
             'event_type': 'entrypoint_fired',
         }
 
-    def test_custom_entrypoint_fired_event_type(
-        self, container_factory, config, utcnow_mock
-    ):
-        config['EVENTLOG_DISPATCHER'] = {
-            'auto_capture': True,
-            'event_types': {'entrypoint_fired': 'custom_entrypoint_fired'}
-        }
-        container = container_factory(TestService, config)
-        container.start()
-
-        with entrypoint_waiter(
-            container, 'log_event_handler', timeout=1
-        ) as result:
-            with entrypoint_hook(
-                container, 'rpc_entrypoint'
-            ) as rpc_entrypoint:
-                rpc_entrypoint()
-
-        expected_body = result.get()
-        call_id = expected_body.pop('call_id')
-        call_stack = expected_body.pop('call_stack')
-
-        assert call_id.startswith('test_service.rpc_entrypoint.')
-        assert len(call_stack) == 1
-        assert call_stack[0].startswith('test_service.rpc_entrypoint.')
-        assert expected_body == {
-            'data': {},
-            'entrypoint_name': 'rpc_entrypoint',
-            'entrypoint_protocol': 'Rpc',
-            'service_name': 'test_service',
-            'timestamp': '2017-05-08T15:22:43+00:00',
-            'event_type': 'custom_entrypoint_fired',
-        }
-
 
 class TestDoNotDispatchEventsAutomatically:
 
@@ -298,10 +264,7 @@ class TestDispatchEventsMaually:
     def test_dispatch_event_with_custom_generic_event_type(
         self, container_factory, config, utcnow_mock
     ):
-        config['EVENTLOG_DISPATCHER'] = {
-            'auto_capture': False,
-            'event_types': {'generic': 'custom_event_type'}
-        }
+        config['EVENTLOG_DISPATCHER'] = {'event_type': 'custom_event_type'}
         container = container_factory(TestService, config)
         container.start()
 

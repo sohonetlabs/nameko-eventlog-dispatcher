@@ -28,7 +28,7 @@ class EventLogDispatcher(EventDispatcher):
     ENTRYPOINT_FIRED = 'entrypoint_fired'
     """Event type used by events triggered when entrypoints are fired."""
 
-    GENERIC_EVENT_TYPE = 'log_event'
+    EVENT_TYPE = 'log_event'
     """Event type used by log events dispatched from the entrypoints."""
 
     ENTRYPOINT_TYPES_TO_LOG = (Rpc, HttpRequestHandler)
@@ -40,19 +40,11 @@ class EventLogDispatcher(EventDispatcher):
 
     def _parse_config(self, config):
         eventlog_config = config.get('EVENTLOG_DISPATCHER', {})
-
         self.auto_capture = eventlog_config.get('auto_capture') or False
         self.entrypoints_to_exclude = eventlog_config.get(
             'entrypoints_to_exclude'
         ) or []
-        event_types = eventlog_config.get('event_types') or {}
-
-        self.generic_event_type = event_types.get(
-            'generic'
-        ) or self.GENERIC_EVENT_TYPE
-        self.entrypoint_fired = event_types.get(
-            'entrypoint_fired'
-        ) or self.ENTRYPOINT_FIRED
+        self.event_type = eventlog_config.get('event_type') or self.EVENT_TYPE
 
     def worker_setup(self, worker_ctx):
         super().worker_setup(worker_ctx)
@@ -61,7 +53,7 @@ class EventLogDispatcher(EventDispatcher):
             return
 
         try:
-            self._get_dispatch(worker_ctx)(event_type=self.entrypoint_fired)
+            self._get_dispatch(worker_ctx)(event_type=self.ENTRYPOINT_FIRED)
         except Exception as exc:
             log.error(exc)
 
@@ -78,7 +70,7 @@ class EventLogDispatcher(EventDispatcher):
             body['timestamp'] = _get_formatted_utcnow()
             body['event_type'] = event_type
             body['data'] = event_data or {}
-            dispatcher(self.service_name, self.generic_event_type, body)
+            dispatcher(self.service_name, self.event_type, body)
 
         return dispatch
 
