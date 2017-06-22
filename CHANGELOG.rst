@@ -14,7 +14,8 @@ Released 2017-06-*
 
 * Use service name as source service, instead of ``all``, when dispatching Nameko events automatically.
 * Add the ability to override the default Nameko ``event_type`` (used for the event logs) in the service config.
-* Add MANIFEST.in
+* Add ``MANIFEST.in``
+* Add a ``metadata`` argument to the ``dispatch`` function to provide extra event metadata.
 
 Version 0.1.0
 -------------

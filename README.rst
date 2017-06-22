@@ -32,10 +32,13 @@ Include the ``EventLogDispatcher`` dependency in your service class:
 
         @rpc
         def foo_method(self):
-            self.eventlog_dispatcher('foo_event_type', {'value': 1})
+            self.eventlog_dispatcher(
+              'foo_event_type', {'value': 1}, metadata={'meta': 2}
+            )
 
-``event_type`` and  some ``event_data`` (optional) will be provided as
-arguments. ``event_data`` must contain JSON serializable data.
+``event_type``, ``event_data`` (optional) and ``metadata`` (optional)
+can be provided as arguments. Both ``event_data`` and ``metadata`` must
+be dictionaries and contain JSON serializable data.
 
 Calling ``foo_method`` will dispatch an event from the ``foo`` service
 with ``log_event`` as the event type. However ``foo_event_type`` will be
