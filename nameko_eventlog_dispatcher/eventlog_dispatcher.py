@@ -36,12 +36,15 @@ class EventLogDispatcher(EventDispatcher):
 
     def setup(self):
         super().setup()
+        self._parse_config(self.container.config)
 
-        config = self.container.config.get('EVENTLOG_DISPATCHER', {})
-        self.auto_capture = config.get('auto_capture') or False
-        self.entrypoints_to_exclude = config.get(
+    def _parse_config(self, config):
+        eventlog_config = config.get('EVENTLOG_DISPATCHER', {})
+        self.auto_capture = eventlog_config.get('auto_capture') or False
+        self.entrypoints_to_exclude = eventlog_config.get(
             'entrypoints_to_exclude'
         ) or []
+        self.event_type = eventlog_config.get('event_type') or self.EVENT_TYPE
 
     def worker_setup(self, worker_ctx):
         super().worker_setup(worker_ctx)
@@ -67,7 +70,7 @@ class EventLogDispatcher(EventDispatcher):
             body['timestamp'] = _get_formatted_utcnow()
             body['event_type'] = event_type
             body['data'] = event_data or {}
-            dispatcher(self.service_name, self.EVENT_TYPE, body)
+            dispatcher(self.service_name, self.event_type, body)
 
         return dispatch
 

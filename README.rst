@@ -69,6 +69,10 @@ Enable auto capture event logs in your nameko configuration file:
     EVENTLOG_DISPATCHER:
       auto_capture: true
       entrypoints_to_exclude: []
+      event_type: log_event
+
+All the attributes above are optional and only used to override their
+default values.
 
 With ``auto_capture`` set to ``true``, a nameko event will be dispatched
 every time an entrypoint is fired:
@@ -82,6 +86,8 @@ every time an entrypoint is fired:
 - ``entrypoints_to_exclude`` can be used to provide a list of entrypoint
   method names to exclude when firing events automatically.
 
+``event_type`` can be added to the config to override the default nameko
+event type used to dispatch this kind of events.
 
 Format of the event log data
 ----------------------------
