@@ -10,7 +10,7 @@ Backwards-compatible changes increment the minor version number only.
 Version 0.2.0
 -------------
 
-Released 2017-06-*
+Released 2017-06-23
 
 * Use service name as source service, instead of ``all``, when dispatching Nameko events automatically.
 * Add the ability to override the default Nameko ``event_type`` (used for the event logs) in the service config.
