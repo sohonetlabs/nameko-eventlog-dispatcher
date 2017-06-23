@@ -45,11 +45,19 @@ class TestService:
         pass
 
     @dummy
-    def log_event_method(self, event_data=None):
+    def log_event_method(self, event_data=None, metadata=None):
         if event_data:
-            self.eventlog_dispatcher('my_event_type', event_data)
+            if metadata:
+                self.eventlog_dispatcher(
+                    'my_event_type', event_data, metadata
+                )
+            else:
+                self.eventlog_dispatcher('my_event_type', event_data)
         else:
-            self.eventlog_dispatcher('my_event_type')
+            if metadata:
+                self.eventlog_dispatcher('my_event_type', metadata=metadata)
+            else:
+                self.eventlog_dispatcher('my_event_type')
 
     @event_handler('test_service', 'log_event')
     def log_event_handler(self, body):
@@ -168,9 +176,7 @@ class TestDoNotDispatchEventsAutomatically:
     def test_dummy_call(
         self, container_factory, config, utcnow_mock, auto_capture
     ):
-        config['EVENTLOG_DISPATCHER'] = {
-            'auto_capture': auto_capture
-        }
+        config['EVENTLOG_DISPATCHER'] = {'auto_capture': auto_capture}
         container = container_factory(TestService, config)
         container.start()
 
@@ -233,9 +239,7 @@ class TestDispatchEventsMaually:
         self, container_factory, config, utcnow_mock, auto_capture, event_data,
         expected_data
     ):
-        config['EVENTLOG_DISPATCHER'] = {
-            'auto_capture': auto_capture
-        }
+        config['EVENTLOG_DISPATCHER'] = {'auto_capture': auto_capture}
         container = container_factory(TestService, config)
         container.start()
 
@@ -283,6 +287,35 @@ class TestDispatchEventsMaually:
         assert call_stack[0].startswith('test_service.log_event_method.')
         assert expected_body == {
             'data': {'a': 1},
+            'entrypoint_name': 'log_event_method',
+            'entrypoint_protocol': 'Entrypoint',
+            'service_name': 'test_service',
+            'timestamp': '2017-05-08T15:22:43+00:00',
+            'event_type': 'my_event_type',
+        }
+
+    def test_dispatch_event_with_additional_metadata(
+        self, container_factory, config, utcnow_mock
+    ):
+        container = container_factory(TestService, config)
+        container.start()
+
+        with entrypoint_waiter(
+            container, 'log_event_handler', timeout=1
+        ) as result:
+            with entrypoint_hook(container, 'log_event_method') as log_event:
+                log_event({'a': 1}, {'b': 2})
+
+        expected_body = result.get()
+        call_id = expected_body.pop('call_id')
+        call_stack = expected_body.pop('call_stack')
+
+        assert call_id.startswith('test_service.log_event_method.')
+        assert len(call_stack) == 1
+        assert call_stack[0].startswith('test_service.log_event_method.')
+        assert expected_body == {
+            'data': {'a': 1},
+            'b': 2,
             'entrypoint_name': 'log_event_method',
             'entrypoint_protocol': 'Entrypoint',
             'service_name': 'test_service',

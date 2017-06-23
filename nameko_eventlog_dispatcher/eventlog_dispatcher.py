@@ -65,8 +65,9 @@ class EventLogDispatcher(EventDispatcher):
         kwargs = self.kwargs
         dispatcher = event_dispatcher(self.config, headers=headers, **kwargs)
 
-        def dispatch(event_type, event_data=None):
+        def dispatch(event_type, event_data=None, metadata=None):
             body = self._get_base_call_info(worker_ctx)
+            body.update(metadata or {})
             body['timestamp'] = _get_formatted_utcnow()
             body['event_type'] = event_type
             body['data'] = event_data or {}
