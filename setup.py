@@ -12,7 +12,7 @@ with open(os.path.join(file_path, 'README.rst'), 'r', 'utf-8') as readme_file:
 
 setup(
     name='nameko-eventlog-dispatcher',
-    version='0.2.0',
+    version='0.3.0',
     description=(
         'Nameko dependency provider that dispatches log data using Events '
         '(Pub-Sub).'

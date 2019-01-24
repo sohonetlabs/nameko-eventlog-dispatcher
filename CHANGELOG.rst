@@ -7,6 +7,12 @@ nameko-eventlog-dispatcher versions, where semantic versioning is used:
 
 Backwards-compatible changes increment the minor version number only.
 
+Version 0.3.0
+-------------
+
+* Support newer versions of Nameko
+* Test with newer versions of Python
+
 Version 0.2.0
 -------------
 

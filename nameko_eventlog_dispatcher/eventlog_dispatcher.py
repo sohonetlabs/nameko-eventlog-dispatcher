@@ -4,7 +4,6 @@ from datetime import datetime, timezone
 
 from nameko.events import EventDispatcher
 from nameko.rpc import Rpc
-from nameko.standalone.events import event_dispatcher
 from nameko.web.handlers import HttpRequestHandler
 
 
@@ -62,8 +61,6 @@ class EventLogDispatcher(EventDispatcher):
 
     def _get_dispatch(self, worker_ctx):
         headers = self.get_message_headers(worker_ctx)
-        kwargs = self.kwargs
-        dispatcher = event_dispatcher(self.config, headers=headers, **kwargs)
 
         def dispatch(event_type, event_data=None, metadata=None):
             body = self._get_base_call_info(worker_ctx)
@@ -71,7 +68,12 @@ class EventLogDispatcher(EventDispatcher):
             body['timestamp'] = _get_formatted_utcnow()
             body['event_type'] = event_type
             body['data'] = event_data or {}
-            dispatcher(self.service_name, self.event_type, body)
+            self.publisher.publish(
+                body,
+                exchange=self.exchange,
+                routing_key=self.event_type,
+                extra_headers=headers
+            )
 
         return dispatch
 
