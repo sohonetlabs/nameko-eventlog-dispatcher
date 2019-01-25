@@ -3,7 +3,6 @@ Nameko eventlog dispatcher
 
 .. pull-quote::
 
-    # TODO: change this quote or the description so that they're not equal
     `Nameko <http://nameko.readthedocs.org>`_ dependency provider that
     dispatches log data using ``Events`` (Pub-Sub).
 
