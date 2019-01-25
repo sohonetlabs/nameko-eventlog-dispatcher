@@ -1,5 +1,6 @@
-sudo: false
-language: python
+sudo: true
+language: python3.7
+dist: xenial
 
 services: rabbitmq
 
