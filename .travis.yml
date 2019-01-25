@@ -2,6 +2,11 @@ sudo: true
 language: python
 dist: xenial
 
+addons:
+  apt:
+    packages:
+      - rabbitmq-server
+
 services: rabbitmq
 
 install:
