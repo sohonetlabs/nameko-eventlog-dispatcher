@@ -3,6 +3,7 @@ Nameko eventlog dispatcher
 
 .. pull-quote::
 
+    # TODO: change this quote or the description so that they're not equal
     `Nameko <http://nameko.readthedocs.org>`_ dependency provider that
     dispatches log data using ``Events`` (Pub-Sub).
 
@@ -36,13 +37,13 @@ Include the ``EventLogDispatcher`` dependency in your service class:
               'foo_event_type', {'value': 1}, metadata={'meta': 2}
             )
 
-``event_type``, ``event_data`` (optional) and ``metadata`` (optional)
-can be provided as arguments. Both ``event_data`` and ``metadata`` must
-be dictionaries and contain JSON serializable data.
-
 Calling ``foo_method`` will dispatch an event from the ``foo`` service
 with ``log_event`` as the event type. However ``foo_event_type`` will be
 the event type stored as part of the event metadata.
+
+``event_type``, ``event_data`` (optional) and ``metadata`` (optional)
+can be provided as arguments. Both ``event_data`` and ``metadata`` must
+be dictionaries and contain JSON serializable data.
 
 Then, any nameko service will be able to handle this event.
 
@@ -100,22 +101,28 @@ This is the format of the event log data:
 .. code-block:: python
 
     {
-      "entrypoint_name": "foo_method",
       "service_name": "foo",
-      "timestamp": "2017-06-12T13:48:16+00:00",
-      "event_type": "foo_event_type",  # "entrypoint_fired", ...
-      "data": {},
+      "entrypoint_protocol": "Rpc",
+      "entrypoint_name": "foo_method",
+      "call_id": "foo.foo_method.d7e907ee-9425-48a6-84e6-89db19e3ce50",
       "call_stack": [
         "standalone_rpc_proxy.call.3f349ea4-ed3e-4a3b-93d0-a36fbf928ecb",
         "bla.bla_method.21d623b4-edc4-4232-9957-4fad72533b75",
         "foo.foo_method.d7e907ee-9425-48a6-84e6-89db19e3ce50"
       ],
-      "entrypoint_protocol": "Rpc",
-      "call_id": "foo.foo_method.d7e907ee-9425-48a6-84e6-89db19e3ce50"
+
+      "event_type": "foo_event_type",  # "entrypoint_fired", ...
+      "timestamp": "2017-06-12T13:48:16+00:00",
+
+      "meta": 2,  # extra information provided as "metadata"
+      "data": {"value": 1}  # extra information provided as "event_data"
     }
 
 The ``data`` attribute will contain the event data that was provided as
 an argument for the ``event_data`` parameter when dispatching the event.
+
+If ``metadata`` was provided, then its elements will be included as top
+level attributes in the event log data.
 
 
 Tests
