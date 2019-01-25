@@ -10,8 +10,10 @@ Backwards-compatible changes increment the minor version number only.
 Version 0.3.0
 -------------
 
-* Support newer versions of Nameko
-* Test with newer versions of Python
+* Updated to support Nameko 2.11 (this breaks compatibilty with older Nameko
+  versions)
+* Drop support for Python 3.3
+* Support Python 3.5, 3.6 and 3.7
 
 Version 0.2.0
 -------------
