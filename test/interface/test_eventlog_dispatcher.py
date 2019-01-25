@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from unittest.mock import call, Mock, patch
+from unittest.mock import call, patch
 
 import pytest
 from nameko.events import event_handler
@@ -9,6 +9,7 @@ from nameko.testing.services import (
     entrypoint_hook,
     EntrypointWaiterTimeout,
     entrypoint_waiter,
+    get_extension,
 )
 from nameko.web.handlers import http
 
@@ -191,35 +192,32 @@ class TestDoNotDispatchEventsAutomatically:
 class TestUnexpectedErrors:
 
     @pytest.fixture
-    def event_dispatcher_mock(self):
-        with patch(
-            'nameko_eventlog_dispatcher.eventlog_dispatcher.event_dispatcher'
-        ) as m:
-            yield m
-
-    @pytest.fixture
     def log_mock(self):
         with patch('nameko_eventlog_dispatcher.eventlog_dispatcher.log') as m:
             yield m
 
     def test_worker_setup_raises(
-        self, container_factory, config, utcnow_mock, event_dispatcher_mock,
-        log_mock
+        self, container_factory, config, utcnow_mock, log_mock
     ):
         config['EVENTLOG_DISPATCHER'] = {'auto_capture': True}
         container = container_factory(TestService, config)
         container.start()
 
         exception = Exception('BOOOM!!')
-        # `get_dependency` makes the first call
-        event_dispatcher_mock.side_effect = [Mock(), exception]
 
-        with pytest.raises(EntrypointWaiterTimeout):
-            with entrypoint_waiter(container, 'log_event_handler', timeout=1):
-                with entrypoint_hook(
-                    container, 'rpc_entrypoint'
-                ) as rpc_entrypoint:
-                    rpc_entrypoint()
+        dependency = get_extension(container, EventLogDispatcher)
+
+        with patch.object(dependency, 'publisher') as mock_publisher:
+            mock_publisher.publish.side_effect = exception
+
+            with pytest.raises(EntrypointWaiterTimeout):
+                with entrypoint_waiter(
+                    container, 'log_event_handler', timeout=1
+                ):
+                    with entrypoint_hook(
+                        container, 'rpc_entrypoint'
+                    ) as rpc_entrypoint:
+                        rpc_entrypoint()
 
         assert log_mock.error.call_args_list == [call(exception)]
 

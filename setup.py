@@ -12,7 +12,7 @@ with open(os.path.join(file_path, 'README.rst'), 'r', 'utf-8') as readme_file:
 
 setup(
     name='nameko-eventlog-dispatcher',
-    version='0.2.0',
+    version='0.3.0',
     description=(
         'Nameko dependency provider that dispatches log data using Events '
         '(Pub-Sub).'
@@ -22,12 +22,12 @@ setup(
     author_email='julio.trigo@sohonet.com',
     url='https://github.com/sohonetlabs/nameko-eventlog-dispatcher',
     packages=find_packages(exclude=['test', 'test.*']),
-    install_requires=['nameko>=2.5.4'],
+    install_requires=['nameko>=2.11,<3.0'],
     extras_require={
         'dev': [
-            'pytest==3.1.2',
-            'flake8==3.3.0',
-            'coverage==4.4.1',
+            'pytest==3.2.5',
+            'flake8',
+            'coverage',
         ],
     },
     zip_safe=True,
@@ -38,8 +38,10 @@ setup(
         "Operating System :: MacOS :: MacOS X",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.3",
         "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
         "Topic :: Internet",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Intended Audience :: Developers",
