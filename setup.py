@@ -25,7 +25,7 @@ setup(
     install_requires=['nameko>=2.11,<3.0'],
     extras_require={
         'dev': [
-            'pytest',
+            'pytest==3.2.5',
             'flake8',
             'coverage',
         ],
