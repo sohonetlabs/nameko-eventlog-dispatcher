@@ -26,8 +26,8 @@ setup(
     extras_require={
         'dev': [
             'pytest==4.3.0',
-            'flake8>=3.7.6',
-            'coverage>=4.5.2',
+            'flake8',
+            'coverage',
         ],
     },
     zip_safe=True,
