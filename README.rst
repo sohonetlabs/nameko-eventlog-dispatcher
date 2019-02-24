@@ -7,7 +7,14 @@ Nameko eventlog dispatcher
     dispatches log data using ``Events`` (Pub-Sub).
 
 
+.. image:: https://img.shields.io/pypi/v/nameko-eventlog-dispatcher.svg
+    :target: https://pypi.org/project/nameko-eventlog-dispatcher/
+
+.. image:: https://img.shields.io/pypi/pyversions/nameko-eventlog-dispatcher.svg
+    :target: https://pypi.org/project/nameko-eventlog-dispatcher/
+
 .. image:: https://travis-ci.org/sohonetlabs/nameko-eventlog-dispatcher.png?branch=master
+    :target: https://travis-ci.org/sohonetlabs/nameko-eventlog-dispatcher
 
 
 Usage
