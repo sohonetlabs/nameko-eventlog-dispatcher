@@ -152,3 +152,10 @@ variable.
 
     $ make test RABBIT_CTL_URI=http://guest:guest@dockermachine:15673 AMQP_URI=amqp://guest:guest@dockermachine:5673 ARGS='-x -vv --disable-pytest-warnings'
     $ make coverage RABBIT_CTL_URI=http://guest:guest@dockermachine:15673 AMQP_URI=amqp://guest:guest@dockermachine:5673 ARGS='-x -vv --disable-pytest-warnings'
+
+
+Changelog
+---------
+
+Consult the `CHANGELOG <https://github.com/sohonetlabs/nameko-eventlog-dispatcher/blob/master/CHANGELOG.rst>`_
+document for fixes and enhancements of each version.
