@@ -164,4 +164,5 @@ document for fixes and enhancements of each version.
 License
 -------
 
-The MIT License. See LICENSE for details.
+The MIT License. See `LICENSE <https://github.com/sohonetlabs/nameko-eventlog-dispatcher/blob/master/LICENSE>`_
+for details.
