@@ -28,6 +28,8 @@ setup(
             'pytest==4.3.0',
             'flake8',
             'coverage',
+            'restructuredtext-lint',
+            'Pygments',
         ],
     },
     zip_safe=True,
