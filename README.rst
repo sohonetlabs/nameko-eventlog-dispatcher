@@ -159,3 +159,9 @@ Changelog
 
 Consult the `CHANGELOG <https://github.com/sohonetlabs/nameko-eventlog-dispatcher/blob/master/CHANGELOG.rst>`_
 document for fixes and enhancements of each version.
+
+
+License
+-------
+
+The MIT License. See LICENSE for details.
