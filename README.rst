@@ -7,7 +7,14 @@ Nameko eventlog dispatcher
     dispatches log data using ``Events`` (Pub-Sub).
 
 
+.. image:: https://img.shields.io/pypi/v/nameko-eventlog-dispatcher.svg
+    :target: https://pypi.org/project/nameko-eventlog-dispatcher/
+
+.. image:: https://img.shields.io/pypi/pyversions/nameko-eventlog-dispatcher.svg
+    :target: https://pypi.org/project/nameko-eventlog-dispatcher/
+
 .. image:: https://travis-ci.org/sohonetlabs/nameko-eventlog-dispatcher.png?branch=master
+    :target: https://travis-ci.org/sohonetlabs/nameko-eventlog-dispatcher
 
 
 Usage
@@ -145,3 +152,17 @@ variable.
 
     $ make test RABBIT_CTL_URI=http://guest:guest@dockermachine:15673 AMQP_URI=amqp://guest:guest@dockermachine:5673 ARGS='-x -vv --disable-pytest-warnings'
     $ make coverage RABBIT_CTL_URI=http://guest:guest@dockermachine:15673 AMQP_URI=amqp://guest:guest@dockermachine:5673 ARGS='-x -vv --disable-pytest-warnings'
+
+
+Changelog
+---------
+
+Consult the `CHANGELOG <https://github.com/sohonetlabs/nameko-eventlog-dispatcher/blob/master/CHANGELOG.rst>`_
+document for fixes and enhancements of each version.
+
+
+License
+-------
+
+The MIT License. See `LICENSE <https://github.com/sohonetlabs/nameko-eventlog-dispatcher/blob/master/LICENSE>`_
+for details.
