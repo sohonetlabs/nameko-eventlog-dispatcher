@@ -134,8 +134,24 @@ level attributes in the event log data.
 Tests
 -----
 
-It is assumed that RabbitMQ is up and running on the default URL
-``guest:guest@localhost`` and uses the default ports.
+It is assumed that **RabbitMQ** is up and running on the default URI
+``guest:guest@localhost`` and uses the default ports. There is a
+Makefile target to run a RabbitMQ docker containers locally using the
+default ports and configuration:
+
+.. code-block:: shell
+
+    $ make docker-rabbitmq-run
+
+To run the tests locally:
+
+.. code-block:: shell
+
+    $ # Create/activate a virtual environment
+    $ pip install tox
+    $ tox
+
+There are other Makefile targets to run tests:
 
 .. code-block:: bash
 
