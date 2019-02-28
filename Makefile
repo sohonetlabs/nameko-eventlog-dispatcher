@@ -28,6 +28,6 @@ coverage: flake8 rst-lint
 # Docker test containers
 
 docker-rabbitmq-run:
-	docker run -d --name rabbitmq-nameko-eventlog-dispatcher \
+	docker run -d --rm --name rabbitmq-nameko-eventlog-dispatcher \
 		-p 15672:15672 -p 5672:5672 \
 		rabbitmq:$(RABBITMQ_VERSION)
