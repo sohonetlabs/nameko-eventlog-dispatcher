@@ -2,6 +2,7 @@
 
 RABBIT_CTL_URI?=http://guest:guest@localhost:15672
 AMQP_URI?=amqp://guest:guest@localhost:5672
+RABBITMQ_VERSION?=3.7-management
 
 
 rst-lint:
@@ -24,3 +25,9 @@ coverage: flake8 rst-lint
 		--amqp-uri $(AMQP_URI)
 	coverage report -m --fail-under 100
 
+# Docker test containers
+
+docker-rabbitmq-run:
+	docker run -d --rm --name rabbitmq-nameko-eventlog-dispatcher \
+		-p 15672:15672 -p 5672:5672 \
+		rabbitmq:$(RABBITMQ_VERSION)
