@@ -22,10 +22,10 @@ setup(
     author_email='julio.trigo@sohonet.com',
     url='https://github.com/sohonetlabs/nameko-eventlog-dispatcher',
     packages=find_packages(exclude=['test', 'test.*']),
-    install_requires=['nameko>=2.11,<3.0'],
+    install_requires=['nameko>=2.6,<2.12'],
     extras_require={
         'dev': [
-            'pytest==4.3.0',
+            'pytest<=4.3.0',
             'flake8',
             'coverage',
             'restructuredtext-lint',
