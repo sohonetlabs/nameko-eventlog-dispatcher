@@ -60,14 +60,14 @@ class EventLogDispatcher(EventDispatcher):
     def get_dependency(self, worker_ctx):
         event_dispatcher = super().get_dependency(worker_ctx)
 
-        def dispatch_with_metadata(event_type, event_data=None, metadata=None):
+        def dispatch(event_type, event_data=None, metadata=None):
             wrapped_event_data = self._wrap_event_data(
                 worker_ctx, event_type, event_data, metadata
             )
 
             event_dispatcher(self.event_type, wrapped_event_data)
 
-        return dispatch_with_metadata
+        return dispatch
 
     def _wrap_event_data(self, worker_ctx, event_type, event_data, metadata):
         envelope = self._get_envelope(worker_ctx)
