@@ -3,14 +3,17 @@ Nameko eventlog dispatcher
 
 .. pull-quote::
 
-    `Nameko <http://nameko.readthedocs.org>`_ dependency provider that
-    dispatches log data using ``Events`` (Pub-Sub).
+    Nameko_ dependency provider that dispatches log data using ``Events``
+    (Pub-Sub).
 
 
 .. image:: https://img.shields.io/pypi/v/nameko-eventlog-dispatcher.svg
     :target: https://pypi.org/project/nameko-eventlog-dispatcher/
 
 .. image:: https://img.shields.io/pypi/pyversions/nameko-eventlog-dispatcher.svg
+    :target: https://pypi.org/project/nameko-eventlog-dispatcher/
+
+.. image:: https://img.shields.io/pypi/format/nameko-eventlog-dispatcher.svg
     :target: https://pypi.org/project/nameko-eventlog-dispatcher/
 
 .. image:: https://travis-ci.org/sohonetlabs/nameko-eventlog-dispatcher.png?branch=master
@@ -51,7 +54,7 @@ the event type stored as part of the event metadata.
 can be provided as arguments. Both ``event_data`` and ``metadata`` must
 be dictionaries and contain JSON serializable data.
 
-Then, any nameko service will be able to handle this event.
+Then, any Nameko_ service will be able to handle this event.
 
 .. code-block:: python
 
@@ -70,7 +73,7 @@ Then, any nameko service will be able to handle this event.
 Capturing log data when entrypoints are fired
 `````````````````````````````````````````````
 
-Enable auto capture event logs in your nameko configuration file:
+Enable auto capture event logs in your Nameko_ configuration file:
 
 .. code-block:: yaml
 
@@ -84,7 +87,7 @@ Enable auto capture event logs in your nameko configuration file:
 All the attributes above are optional and only used to override their
 default values.
 
-With ``auto_capture`` set to ``true``, a nameko event will be dispatched
+With ``auto_capture`` set to ``true``, a Nameko_ event will be dispatched
 every time an entrypoint is fired:
 
 - They can also be handled by listening ``log_event`` events from the
@@ -96,7 +99,7 @@ every time an entrypoint is fired:
 - ``entrypoints_to_exclude`` can be used to provide a list of entrypoint
   method names to exclude when firing events automatically.
 
-``event_type`` can be added to the config to override the default nameko
+``event_type`` can be added to the config to override the default Nameko_
 event type used to dispatch this kind of events.
 
 Format of the event log data
@@ -162,7 +165,7 @@ A different RabbitMQ URI can be provided overriding the following
 environment variables: ``RABBIT_CTL_URI`` and ``AMQP_URI``.
 
 Additional ``pytest`` parameters can be also provided using the ``ARGS``
-variable.
+variable:
 
 .. code-block:: bash
 
@@ -182,3 +185,6 @@ License
 
 The MIT License. See `LICENSE <https://github.com/sohonetlabs/nameko-eventlog-dispatcher/blob/master/LICENSE>`_
 for details.
+
+
+.. _Nameko: http://nameko.readthedocs.org
