@@ -11,6 +11,8 @@ Backwards-compatible changes increment the minor version number only.
 0.4.0
 -----
 
+Released 2019-03-15
+
 * Add support for Python 3.7 (#12)
 * Add support for older Nameko versions: 2.6, 2.7, 2.8, 2.9, 2.10, 2.11
   (#13, #14)
