@@ -30,4 +30,4 @@ matrix:
       env: TOX_ENV="py37-nameko{2.6,2.7,2.8,2.9,2.10,2.11}"
 
 script:
-  - tox -e "$TOX_ENV"
+  - tox -e $TOX_ENV
