@@ -18,6 +18,7 @@ setup(
         '(Pub-Sub).'
     ),
     long_description=readme,
+    long_description_content_type='text/x-rst',
     author='Julio Trigo',
     author_email='julio.trigo@sohonet.com',
     url='https://github.com/sohonetlabs/nameko-eventlog-dispatcher',
