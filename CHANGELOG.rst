@@ -1,5 +1,5 @@
-Release Notes
-=============
+Version History
+===============
 
 Here you can see the full list of changes between
 nameko-eventlog-dispatcher versions, where semantic versioning is used:
@@ -7,20 +7,28 @@ nameko-eventlog-dispatcher versions, where semantic versioning is used:
 
 Backwards-compatible changes increment the minor version number only.
 
-Version 0.3.0
--------------
+
+0.4.0
+-----
+
+* Add support for Python 3.7 (#12)
+* Add support for older Nameko versions: 2.6, 2.7, 2.8, 2.9, 2.10, 2.11
+  (#13, #14)
+
+
+0.3.0
+-----
 
 Released 2019-01-28
 
-* Updated to support Nameko 2.11 (**this breaks compatibilty with older
-  Nameko versions**).
-* Drop support for Python 3.3
-* Support Python 3.5 and 3.6
-* Update ``dev`` requirements.
+* Updated to support Nameko 2.11 (**this breaks compatibilty with
+  older Nameko versions**) (#8)
+* Drop support for Python 3.3 (#8)
+* Support Python 3.5 and 3.6 (#8)
 
 
-Version 0.2.0
--------------
+0.2.0
+-----
 
 Released 2017-06-23
 
@@ -32,8 +40,8 @@ Released 2017-06-23
 * Add a ``metadata`` argument to the ``dispatch`` function to provide
   extra event metadata.
 
-Version 0.1.0
--------------
+0.1.0
+-----
 
 Released 2017-06-19
 

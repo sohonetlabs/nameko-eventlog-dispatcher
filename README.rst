@@ -173,6 +173,14 @@ variable:
     $ make coverage RABBIT_CTL_URI=http://guest:guest@dockermachine:15673 AMQP_URI=amqp://guest:guest@dockermachine:5673 ARGS='-x -vv --disable-pytest-warnings'
 
 
+Nameko support
+--------------
+
+The following Nameko_ versions are supported:
+
+- ``2.x`` series: 2.6, 2.7, 2.8, 2.9, 2.10, 2.11
+
+
 Changelog
 ---------
 
