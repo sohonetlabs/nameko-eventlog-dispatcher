@@ -12,12 +12,13 @@ with open(os.path.join(file_path, 'README.rst'), 'r', 'utf-8') as readme_file:
 
 setup(
     name='nameko-eventlog-dispatcher',
-    version='0.3.0',
+    version='0.4.0',
     description=(
         'Nameko dependency provider that dispatches log data using Events '
         '(Pub-Sub).'
     ),
     long_description=readme,
+    long_description_content_type='text/x-rst',
     author='Julio Trigo',
     author_email='julio.trigo@sohonet.com',
     url='https://github.com/sohonetlabs/nameko-eventlog-dispatcher',
