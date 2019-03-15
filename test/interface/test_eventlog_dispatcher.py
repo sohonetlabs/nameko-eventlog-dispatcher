@@ -9,11 +9,11 @@ from nameko.testing.services import (
     entrypoint_hook,
     EntrypointWaiterTimeout,
     entrypoint_waiter,
-    get_extension,
 )
 from nameko.web.handlers import http
 
 from nameko_eventlog_dispatcher import EventLogDispatcher
+from nameko_eventlog_dispatcher.eventlog_dispatcher import EventDispatcher
 
 
 @pytest.fixture
@@ -205,10 +205,10 @@ class TestUnexpectedErrors:
 
         exception = Exception('BOOOM!!')
 
-        dependency = get_extension(container, EventLogDispatcher)
-
-        with patch.object(dependency, 'publisher') as mock_publisher:
-            mock_publisher.publish.side_effect = exception
+        with patch.object(
+            EventDispatcher, 'get_dependency'
+        ) as mock_get_dependency:
+            mock_get_dependency.return_value.side_effect = exception
 
             with pytest.raises(EntrypointWaiterTimeout):
                 with entrypoint_waiter(

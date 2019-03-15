@@ -52,32 +52,33 @@ class EventLogDispatcher(EventDispatcher):
             return
 
         try:
-            self._get_dispatch(worker_ctx)(event_type=self.ENTRYPOINT_FIRED)
+            dispatcher = self.get_dependency(worker_ctx)
+            dispatcher(event_type=self.ENTRYPOINT_FIRED)
         except Exception as exc:
             log.error(exc)
 
     def get_dependency(self, worker_ctx):
-        return self._get_dispatch(worker_ctx)
-
-    def _get_dispatch(self, worker_ctx):
-        headers = self.get_message_headers(worker_ctx)
+        event_dispatcher = super().get_dependency(worker_ctx)
 
         def dispatch(event_type, event_data=None, metadata=None):
-            body = self._get_base_call_info(worker_ctx)
-            body.update(metadata or {})
-            body['timestamp'] = _get_formatted_utcnow()
-            body['event_type'] = event_type
-            body['data'] = event_data or {}
-            self.publisher.publish(
-                body,
-                exchange=self.exchange,
-                routing_key=self.event_type,
-                extra_headers=headers
+            wrapped_event_data = self._wrap_event_data(
+                worker_ctx, event_type, event_data, metadata
             )
+
+            event_dispatcher(self.event_type, wrapped_event_data)
 
         return dispatch
 
-    def _get_base_call_info(self, worker_ctx):
+    def _wrap_event_data(self, worker_ctx, event_type, event_data, metadata):
+        envelope = self._get_envelope(worker_ctx)
+        envelope.update(metadata or {})
+        envelope['timestamp'] = _get_formatted_utcnow()
+        envelope['event_type'] = event_type
+        envelope['data'] = event_data or {}
+
+        return envelope
+
+    def _get_envelope(self, worker_ctx):
         entrypoint = worker_ctx.entrypoint
         return {
             'service_name': worker_ctx.service_name,
