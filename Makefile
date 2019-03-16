@@ -2,7 +2,7 @@
 
 RABBIT_CTL_URI?=http://guest:guest@localhost:15672
 AMQP_URI?=amqp://guest:guest@localhost:5672
-RABBITMQ_VERSION?=3.7-management
+RABBITMQ_VERSION?=3.6-management
 
 
 rst-lint:
