@@ -2,7 +2,7 @@
 
 RABBIT_CTL_URI?=http://guest:guest@localhost:15672
 AMQP_URI?=amqp://guest:guest@localhost:5672
-RABBITMQ_VERSION?=3.7-management
+RABBITMQ_VERSION?=3.6-management
 
 
 rst-lint:
@@ -20,10 +20,11 @@ test: flake8
 coverage: flake8 rst-lint
 	coverage run --concurrency=eventlet \
 		--source nameko_eventlog_dispatcher \
+		--branch \
 		-m pytest test $(ARGS) \
 		--rabbit-ctl-uri $(RABBIT_CTL_URI) \
 		--amqp-uri $(AMQP_URI)
-	coverage report -m --fail-under 100
+	coverage report --show-missing --fail-under 100
 
 # Docker test containers
 

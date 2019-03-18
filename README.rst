@@ -154,10 +154,12 @@ To run the tests locally:
     $ pip install tox
     $ tox
 
-There are other Makefile targets to run tests:
+There are other Makefile targets to run the tests, but extra
+dependencies will have to be installed:
 
 .. code-block:: bash
 
+    $ pip install -U --editable ".[dev]"
     $ make test
     $ make coverage
 
@@ -178,7 +180,7 @@ Nameko support
 
 The following Nameko_ versions are supported:
 
-- ``2.x`` series: 2.6, 2.7, 2.8, 2.9, 2.10, 2.11
+- ``2.x`` series: ``2.6``, ``2.7``, ``2.8``, ``2.9``, ``2.10``, ``2.11``
 
 
 Changelog
