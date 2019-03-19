@@ -10,7 +10,7 @@ rst-lint:
 	rst-lint CHANGELOG.rst
 
 flake8:
-	flake8 nameko_eventlog_dispatcher test
+	flake8 nameko_eventlog_dispatcher test setup.py
 
 test: flake8
 	pytest test $(ARGS) \
