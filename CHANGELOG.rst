@@ -8,14 +8,23 @@ nameko-eventlog-dispatcher versions, where semantic versioning is used:
 Backwards-compatible changes increment the minor version number only.
 
 
+0.4.1
+-----
+
+Released 2019-03-21
+
+* Add Nameko ``2.12`` support (#16)
+* Ensure that Tox can be run cleanly locally (#15)
+
+
 0.4.0
 -----
 
 Released 2019-03-15
 
 * Add support for Python 3.7 (#12)
-* Add support for older Nameko versions: 2.6, 2.7, 2.8, 2.9, 2.10, 2.11
-  (#13, #14)
+* Add support for older Nameko versions: ``2.6``, ``2.7``, ``2.8``,
+  ``2.9``, ``2.10``, ``2.11`` (#13, #14)
 
 
 0.3.0

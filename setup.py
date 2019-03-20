@@ -12,7 +12,7 @@ with open(os.path.join(file_path, 'README.rst'), 'r', 'utf-8') as readme_file:
 
 setup(
     name='nameko-eventlog-dispatcher',
-    version='0.4.0',
+    version='0.4.1',
     description=(
         'Nameko dependency provider that dispatches log data using Events '
         '(Pub-Sub).'
@@ -23,7 +23,7 @@ setup(
     author_email='julio.trigo@sohonet.com',
     url='https://github.com/sohonetlabs/nameko-eventlog-dispatcher',
     packages=find_packages(exclude=['test', 'test.*']),
-    install_requires=['nameko>=2.6,<2.12'],
+    install_requires=['nameko>=2.6'],
     extras_require={
         'dev': [
             'pytest<=4.3.0',
