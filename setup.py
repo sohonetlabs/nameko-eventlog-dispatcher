@@ -32,6 +32,7 @@ setup(
             'coverage',
             'restructuredtext-lint',
             'Pygments',
+            'pytest-eventlet'
         ],
     },
     zip_safe=True,
