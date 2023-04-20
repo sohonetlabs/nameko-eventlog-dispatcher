@@ -8,6 +8,14 @@ nameko-eventlog-dispatcher versions, where semantic versioning is used:
 Backwards-compatible changes increment the minor version number only.
 
 
+0.4.2
+-----
+
+Released 2023-04-20
+
+* Drop support for Python < 3.6. Add tests for new Python and Nameko 2.x versions.
+
+
 0.4.1
 -----
 
